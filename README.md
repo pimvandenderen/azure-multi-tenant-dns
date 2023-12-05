@@ -19,6 +19,19 @@ To remove the need for cross tenant VNET peering, I tested out to use of [Azure 
 
 ![alt text](https://github.com/pimvandenderen/azure-multi-tenant-dns/blob/8bcdffb18306ef3ce175702cede3f3c1f494861f/multitenant-dns-pls.png "DNS Multi Tenant with PLS")
 
+As you can see in the diagram above, I have two DNS servers in my production tenant, acting as a DNS forwarder to the private DNS zones hosted in that tenant. I put both of these private DNS servers behind a standard Azure Load Balancer to be able to use PLS to my development tenant. Configuration steps:
+1. Create two virtual machines in tenant production that act as DNS forwarders. For this scenario you cannot use Azure Private DNS Resolver since Azure Private Link Service requires a standard load balancer.
+2. Create a private DNS zone for the Azure PaaS service that you want to resolve (such as privatelink.blob.core.windows.net) and link this private DNS zone to the VNET where your DNS forwarders are hosted.
+3. Create an Azure PaaS service (such as an Azure Storage Account) with a private endpoint
+4. Create an A-Record for the private endpoint of the Azure PaaS service in the private DNS zone. 
+5. Create the private endpoint in the second (development) tenant. Assign the private endpoint to a VNET and subnet in this second (development) tenant.
+6. Change the DNS servers on the spoke-vnet to custom and assign the IP of the private endpoint as a custom DNS server.
+7. Reboot your virtual machine in the spoke VNET in the development
+8. Using NSLookup, you can now resolve the A-record hosted in the Production tenant private DNS zone.
+
+
+
+
 
 
 
