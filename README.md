@@ -14,7 +14,7 @@ When organizations have multiple Azure Entra ID tenant's, DNS for Azure native s
 ## Possible solutions
 Recently I came across a great [Medium article](https://medium.com/sparebank1-digital/multi-tenant-and-hybrid-dns-with-azure-private-dns-6ace8a67b6de) written by Joakim Ellestad that explains this exact issue and how he solved this with Azure Lighthouse and Azure Policy. There are two things that I didn't like about this solution and I wanted to improve upon: 
 1. Cross VNET peering: I don't want to use  cross tenant VNET peering between my main/production and remote/development tenants. I want to maintain a network isolation boundry between tenants. There is also a [limit](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#networking-limits) of 500 peerings per virtual network, so this might break down at scale. 
-2. If customers are not using Azure Lighthouse, I don't want to incorperate this into the architecture. 
+2. If customers are not using Azure Lighthouse, I wanted to give them another option instead of adopting Azure Lighthouse for just DNS management. 
 
 ##  solution
 To remove the need for cross tenant VNET peering, I tested out to use of [Azure Private Link Service](https://learn.microsoft.com/en-us/azure/private-link/private-link-service-overview). With Azure Private Link Service, we can expose the DNS servers from tenant Production to tenant Development using a private endpoint in tenant Development. Another reason I like this is that we can put the private endpoint on any VNET or subnet in any region in tenant Development. 
