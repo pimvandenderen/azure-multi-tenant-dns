@@ -76,7 +76,7 @@ PowerShell script for the Azure Function can be found here: https://github.com/p
 - Upload the PowerShell script to the Azure Function. Instructions on how to do this are here: https://learn.microsoft.com/en-us/azure/azure-functions/deployment-zip-push
 - Enable the Azure Function Managed Identity. Go to the Azure function --> Settings --> Identity. Select "System assigned" and select "Status -> On".
 - Set the variables for the Azure Function. On the Azure Function --> under settings --> Click on "Configuration".
-- Under Application settings, add the following application settings
+- Under Application settings, add the following application settings. 
   
 
 | Name  | Example Value | Description |
@@ -91,7 +91,12 @@ PowerShell script for the Azure Function can be found here: https://github.com/p
 | **REMOTE_SUBSCRIPTIONID**  | 840e13a6-7fd8-4f0d-85e0-2a8812859f96  | The Subscription ID in **remote/development tenant** that contains the Azure Private DNS zone | 
 | **REMOTE_TENANT**  | 840e13a6-7fr8-4f0d-85e0-2a8812859f97  | The tenant ID of the remote tenant that contains the Azure Private DNS zone  | 
 
-**5. 
+
+****5. Give the Managed Identity permissions on the Azure Private DNS Zone** (Production / main tenant): 
+- Go to the Private DNS zone that you want to synchronize between between the remote/development and the main/production tenant
+- Click on Add --> Add Role assignment. Select the "Private DNS Contributor" role and click "next".
+- Under Members, select the service principle you created in step 1 (func-cross-tenant-dns). Click on "Review + Assign" to give the service principle permissions. 
+
 
 
 
