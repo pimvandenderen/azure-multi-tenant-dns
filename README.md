@@ -1,4 +1,4 @@
-# Azure Multi tenant DNS Resolution
+# Azure Multi Tenant DNS Resolution
 
 In this article I'm not going to explain in detail how Azure hybrid private DNS zones work [since this is pretty well documented already](https://learn.microsoft.com/en-us/azure/architecture/hybrid/hybrid-dns-infra), so I'm going to assume that you already have a good understanding of this concept. 
 
