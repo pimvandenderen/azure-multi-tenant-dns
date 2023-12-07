@@ -57,11 +57,11 @@ try {
 
     # Set Azure Subscription Context
     Set-AzContext -SubscriptionID $remotesub -ErrorAction Stop
-    Write-Host "Connected to Azure and set context to subscription: $remotesub"
+    Write-Host "Connected to Azure and set context to subscription ID: $remotesub"
     
 } catch {
     # Handle the exception
-    Write-Error "Cannot connect to $tenant: $_"
+    Write-Error "Cannot connect to $($tenant): $_"
     exit
 }
 
@@ -70,7 +70,7 @@ try {
 try {
     # Get DNS zone records
     $RemoteDnsRecords = Get-AzPrivateDnsRecordSet -ResourceGroupName $remoterg -ZoneName $dnsZoneName -RecordType A -ErrorAction Stop
-    Write-Host "Successfully retrieved DNS records."
+    Write-Host "Successfully retrieved DNS records from remote tenant: $($tenant)."
 } catch {
     # Handle the exception
     Write-Error "An error occurred while retrieving DNS records: $_"
@@ -106,7 +106,8 @@ try {
     Write-Error "Couldn't get the existing records in the private DNS zone: $_"
 }
 
-
+# Add DNS records
+$addCount = 0 
 foreach ($record in $RemoteDnsRecords) { 
 
     if (!($MainDnsRecords | Where-Object {$_.Name -eq $record.name})) {
@@ -120,7 +121,11 @@ foreach ($record in $RemoteDnsRecords) {
                 -ttl $record.ttl `
                 -privateDNSRecords (New-AzPrivateDNSRecordConfig -ipv4Address $($record.Records.ipv4Address)) `
                 -metadata @{creationTime="$(Get-Date -format o)"; tenantID="$($tenant)"; targetResourceId="$($record.id)";}
+
             Write-Host "DNS record $($record.name) created successfully."
+
+            $addCount++
+
         } catch {
             Write-Error "DNS record $($record.name) failed to create: $_"
         }
@@ -133,13 +138,19 @@ foreach ($record in $RemoteDnsRecords) {
 $recordsToRemove = $MainDnsRecords | Where-Object {$_.Metadata.tenantID -eq $tenant -and -not ($RemoteDnsRecords.Name -contains $_.Name)}
 
 # Iterate through the filtered records to remove
+$removeCount = 0 
 foreach ($record in $recordsToRemove) {
     try {
         Remove-AzPrivateDNSRecordSet -ResourceGroupName $resourceGroupName -ZoneName $dnsZoneName -Name $record.Name -RecordType A
         Write-Host "DNS Record $($record.Name) deleted"
+
+        $removeCount++
     } catch {
         Write-Error "DNS Record $($record.Name) could not get deleted: $_"
     }
 }
+
+Write-host "Total DNS records added:" $addCount
+Write-host "Total DNS records removed:" $removeCount
 
 
