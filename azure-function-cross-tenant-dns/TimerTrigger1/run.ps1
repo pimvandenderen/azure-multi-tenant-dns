@@ -18,7 +18,6 @@ $dnsZoneName = $env:DNSZONENAME ## Name of the private DNS zone that you want to
 
 $tenant = $env:REMOTE_TENANT ## Tenant ID for the remote tenant
 $clientid = $env:REMOTE_CLIENTID ## Client ID of  the application registration in the remote tenant
-$secretid = $env:REMOTE_SECRETID ## Client Secret ID of the application registration in the remote tenant
 $secretvalue = $env:REMOTE_SECRETVALUE ## Client Secret Value of the application registration in the remote tenant
 $remotesub = $env:REMOTE_SUBSCRIPTIONID ## SubscriptionID in the remote tenant that hosts the private DNS zone. 
 $remoterg = $env:REMOTE_RGNAME ## Resource group in the remote tenant to hosts the private DNS zone. 
@@ -31,7 +30,6 @@ $resourceGroupName = $env:MAIN_RGNAME ## Resource group in the main tenant that 
 $variables = @{
     "REMOTE_TENANT" = $env:REMOTE_TENANT
     "REMOTE_CLIENTID" = $env:REMOTE_CLIENTID
-    "REMOTE_SECRETID" = $env:REMOTE_SECRETID
     "REMOTE_SECRETVALUE" = $env:REMOTE_SECRETVALUE
     "REMOTE_SUBSCRIPTIONID" = $env:REMOTE_SUBSCRIPTIONID
     "REMOTE_RGNAME" = $env:REMOTE_RGNAME
