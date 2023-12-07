@@ -12,11 +12,11 @@ When organizations have multiple Azure Entra ID tenant's, DNS for Azure native s
 
 
 ## Possible solutions
-Recently I came across a great [Medium article](https://medium.com/sparebank1-digital/multi-tenant-and-hybrid-dns-with-azure-private-dns-6ace8a67b6de) written by Joakim Ellestad that explains this exact issue and how he solved this with Azure Lighthouse and Azure Policy. I shared this with my customer, but they didn't like this for two reasons: 
-1. They didn't want to use cross tenant VNET peering between their production tenant and their development tenant. They want to maintain a network isolation boundry between their production and development tenants.
-2. They didn't want to adopt Azure Lighthouse for just this problem.
+Recently I came across a great [Medium article](https://medium.com/sparebank1-digital/multi-tenant-and-hybrid-dns-with-azure-private-dns-6ace8a67b6de) written by Joakim Ellestad that explains this exact issue and how he solved this with Azure Lighthouse and Azure Policy. There are two things that I didn't like about this solution and I wanted to improve upon: 
+1. Cross VNET peering: I don't want to use  cross tenant VNET peering between my main/production and remote/development tenants. I want to maintain a network isolation boundry between tenants. There is also a [limit](https://learn.microsoft.com/en-us/azure/azure-resource-manager/management/azure-subscription-service-limits#networking-limits) of 500 peerings per virtual network, so this might break down at scale. 
+2. If customers are not using Azure Lighthouse, I don't want to incorperate this into the architecture. 
 
-## Another solution
+##  solution
 To remove the need for cross tenant VNET peering, I tested out to use of [Azure Private Link Service](https://learn.microsoft.com/en-us/azure/private-link/private-link-service-overview). With Azure Private Link Service, we can expose the DNS servers from tenant Production to tenant Development using a private endpoint in tenant Development. Another reason I like this is that we can put the private endpoint on any VNET or subnet in any region in tenant Development. 
 
 ![alt text](https://github.com/pimvandenderen/azure-multi-tenant-dns/blob/8bcdffb18306ef3ce175702cede3f3c1f494861f/multitenant-dns-pls.png "DNS Multi Tenant with PLS")
