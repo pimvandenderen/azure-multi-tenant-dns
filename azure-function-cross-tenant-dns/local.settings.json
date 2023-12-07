@@ -1,0 +1,22 @@
+{
+  "IsEncrypted": false,
+  "Values": {
+    "AzureWebJobsStorage": "DefaultEndpointsProtocol=https;AccountName=dnsfunctrg8208;AccountKey=Kcr+CeaXyOdZhcRh/K/P0oDnMO3Ui2MO+cccOAmCL8z++FQoAHE4ghrolL3d/dTVhhjPngFTI2yr+ASt+JIuCA==;EndpointSuffix=core.windows.net",
+    "FUNCTIONS_WORKER_RUNTIME_VERSION": "7.2",
+    "FUNCTIONS_WORKER_RUNTIME": "powershell",
+    "APPLICATIONINSIGHTS_CONNECTION_STRING": "InstrumentationKey=39869703-7a31-4a5a-899d-2ec5a06bf184;IngestionEndpoint=https://eastus-8.in.applicationinsights.azure.com/;LiveEndpoint=https://eastus.livediagnostics.monitor.azure.com/",
+    "DNSZONENAME": "privatelink.blob.core.windows.net",
+    "FUNCTIONS_EXTENSION_VERSION": "~4",
+    "MAIN_RGNAME": "pls-prod-rg",
+    "MAIN_SUBSCRIPTIONID": "46ff3a32-ad72-40d6-ae7c-c019a0340292",
+    "REMOTE_CLIENTID": "f509e07b-940b-403a-9a8b-efadd60a8186",
+    "REMOTE_RGNAME": "cross-tenant-rg",
+    "REMOTE_SECRETID": "53461211-eef0-4e1c-a883-51dfe855e0e3",
+    "REMOTE_SECRETVALUE": "V_O8Q~vw6n0NFEy7pwL6.BL0XwOt3UwSfYgSebB4",
+    "REMOTE_SUBSCRIPTIONID": "d52db74b-bb91-41e1-9815-c1c0ac0f2a6f",
+    "REMOTE_TENANT": "850297ee-4f18-4df9-a9cb-6bab5721ecb7",
+    "WEBSITE_CONTENTAZUREFILECONNECTIONSTRING": "DefaultEndpointsProtocol=https;AccountName=dnsfunctrg8208;AccountKey=Kcr+CeaXyOdZhcRh/K/P0oDnMO3Ui2MO+cccOAmCL8z++FQoAHE4ghrolL3d/dTVhhjPngFTI2yr+ASt+JIuCA==;EndpointSuffix=core.windows.net",
+    "WEBSITE_CONTENTSHARE": "dnsfunctapp9a72",
+    "WEBSITE_RUN_FROM_PACKAGE": "1"
+  }
+}
