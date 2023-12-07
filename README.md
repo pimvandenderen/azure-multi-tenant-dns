@@ -47,8 +47,12 @@ Configuration steps for the Azure Function:
    
 ![alt text](https://github.com/pimvandenderen/azure-multi-tenant-dns/blob/5539dc9c2e59e00e48cdee40b2aa44a1471a0c9b/images/appreg.png)
 
-**2. Assign the application registration permissions on the private DNS zone(s) ** (Development/remote tenant):
+**2. Assign the application registration permissions on the private DNS zone(s)** (Development/remote tenant):
+  - Go to the private DNS zone that you want to copy over to the Production/main tenant (for example: privatelink.blob.core.windows.net) and go to "Access Control (IAM)"
+  - Click on Add --> Add Role assignment. Select the "Reader" role and click "next".
+  - Under Members, select the service principle you created in step 1 (func-cross-tenant-dns). Click on "Review + Assign" to give the service principle permissions. 
 
+You can use this for multiple DNS zones, you need to repeat step 2 for all Private DNS zones in the environment or set the permissions on the resource group that the Private DNS zones are in (recommended). 
 
 
 
