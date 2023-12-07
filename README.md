@@ -92,7 +92,7 @@ PowerShell script for the Azure Function can be found here: https://github.com/p
 | **REMOTE_TENANT**  | 840e13a6-7fr8-4f0d-85e0-2a8812859f97  | The tenant ID of the remote tenant that contains the Azure Private DNS zone  | 
 
 
-****5. Give the Managed Identity permissions on the Azure Private DNS Zone** (Production / main tenant): 
+**5. Give the Managed Identity permissions on the Azure Private DNS Zone** (Production / main tenant): 
 - Go to the Private DNS zone that you want to synchronize between between the remote/development and the main/production tenant
 - Click on Add --> Add Role assignment. Select the "Private DNS Contributor" role and click "next".
 - Under Members, select the service principle you created in step 1 (func-cross-tenant-dns). Click on "Review + Assign" to give the service principle permissions. 
