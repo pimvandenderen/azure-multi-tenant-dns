@@ -70,7 +70,28 @@ _Please be aware that step 3 and below need to be executed on the Production/mai
 - Deployment: Leave as default.
 - Click "Review + Create" to create the function
 
-**4. 
+**4. Configure the Azure Function** (Production / main tenant):
+PowerShell script for the Azure Function can be found here: https://github.com/pimvandenderen/azure-multi-tenant-dns/tree/master/azure-function-cross-tenant-dns
+
+- Upload the PowerShell script to the Azure Function. Instructions on how to do this are here: https://learn.microsoft.com/en-us/azure/azure-functions/deployment-zip-push
+- Enable the Azure Function Managed Identity. Go to the Azure function --> Settings --> Identity. Select "System assigned" and select "Status -> On".
+- Set the variables for the Azure Function. On the Azure Function --> under settings --> Click on "Configuration".
+- Under Application settings, add the following application settings
+  
+
+| Name  | Example Value | Description |
+| ------------- | ------------- | ----------- | 
+| **DNSZONENAME**  | privatelink.blob.core.windows.net  | The name of the Azure Private DNS Zone that you want to synchronize between the remote/development and the main/production tenant | 
+| **MAIN_RGNAME**  | privatedns-rg  | The name of the resource group in the **main/production tenant** that contains the Azure Private DNS zone  | 
+| **MAIN_SUBSCRIPTIONID**  | 9c244509-16f9-439d-ad2c-ee6df5389311  | The Subscription ID in **main/production tenant** that that contains the Azure Private DNS zone | 
+| **REMOTE_CLIENTID**  | fd402476-a32a-4a7c-95ca-0020927eca7e  | The Client ID / Application ID of the Application Registration in the **remote/development tenant** that you created in step 1 | 
+| **REMOTE_RGNAME**  | privatedns-rg  | The name of the resource group in the **remote/development tenant** that contains the Azure Private DNS zone | 
+| **REMOTE_SECRETID**  | 53461211-eef0-4e1c-a883-51dfe855e0e4  | The Secret ID of the Application Registration in the **remote/development tenant** that you created in step 1 | 
+| **REMOTE_SECRETVALUE**  | V_O8Q~vw6n0NFEy7pwL6.BL0XwOt324UwSfYgS64ebB4| The Secret value of the Application Registration in the **remote/development tenant** that you created in step 1 | 
+| **REMOTE_SUBSCRIPTIONID**  | 840e13a6-7fd8-4f0d-85e0-2a8812859f96  | The Subscription ID in **remote/development tenant** that contains the Azure Private DNS zone | 
+| **REMOTE_TENANT**  | 840e13a6-7fr8-4f0d-85e0-2a8812859f97  | The tenant ID of the remote tenant that contains the Azure Private DNS zone  | 
+
+**5. 
 
 
 
