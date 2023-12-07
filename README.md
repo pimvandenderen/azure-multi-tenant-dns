@@ -9,6 +9,8 @@ When organizations have multiple Azure Entra ID tenant's, DNS for Azure native s
 
 ![alt text](https://github.com/pimvandenderen/azure-multi-tenant-dns/blob/226d3515259f25f9b44d248b75503906f24e00db/ProblemStatement.png "DNS Multi tenant problem")
 
+
+
 ## Possible solutions
 Recently I came across a great [Medium article](https://medium.com/sparebank1-digital/multi-tenant-and-hybrid-dns-with-azure-private-dns-6ace8a67b6de) written by Joakim Ellestad that explains this exact issue and how he solved this with Azure Lighthouse and Azure Policy. I shared this with my customer, but they didn't like this for two reasons: 
 1. They didn't want to use cross tenant VNET peering between their production tenant and their development tenant. They want to maintain a network isolation boundry between their production and development tenants.
