@@ -95,7 +95,10 @@ PowerShell script for the Azure Function can be found here: https://github.com/p
 **5. Give the Managed Identity permissions on the Azure Private DNS Zone** (Production / main tenant): 
 - Go to the Private DNS zone that you want to synchronize between between the remote/development and the main/production tenant
 - Click on Add --> Add Role assignment. Select the "Private DNS Contributor" role and click "next".
-- Under Members, select the service principle you created in step 1 (func-cross-tenant-dns). Click on "Review + Assign" to give the service principle permissions. 
+- Under Members, select the service principle you created in step 1 (func-cross-tenant-dns). Click on "Review + Assign" to give the service principle permissions.
+
+**6. Test the Azure Function** (Production / main tenant):
+You can test the Azure Function by starting it. The function also runs on a 5 minute timer, so DNS gets updated every 5 minutes. DNS records that are populated in the remote/development tenant, will be automatically copied to the main/production tenant. 
 
 
 
