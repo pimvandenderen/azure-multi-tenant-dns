@@ -32,7 +32,22 @@ As you can see in the diagram above, I have two DNS servers in my production ten
 7. Reboot your virtual machine in the spoke VNET in the development
 8. Using NSLookup, you can now resolve the A-record hosted in the Production tenant private DNS zone.
 
-### Step 2: Maintaining A-records accross multiple tenants 
+### Step 2: Maintaining A-records accross multiple tenants
+To keep the DNS records in sync between the production tenant and the development tenant, I'm using an Azure Function to replicate these a-records. The function lists the a-record from the development tenant and creates a duplicate of this a-record in the private DNS zone in the production tenant. Similarly, if you remove the a-record from the development tenant, the Azure function removes the a-record from the production tenant as well. This means that for private endpoints in the development tenant, you still need to register the DNS records in the private DNS zone (in the development tenant). Using the Azure Portal, you get the option during the creation of the private endpoint on the PaaS service. If you are using Terraform, ARM or another IaC, I highly recommend incorperating this in your automation process. There is also a great [article](https://learn.microsoft.com/en-us/azure/cloud-adoption-framework/ready/azure-best-practices/private-link-and-dns-integration-at-scale) as part of the Azure Cloud Adoption Framework that describes how you can use a Azure Policy for this. 
+
+
+
+Configuration steps for the Azure Function: 
+
+**1. Create the Application Registration** (Development/remote tenant): 
+  - Go to Microsoft Entra ID --> App Registration and click on "New Registration". Give the Application Registration a name (for example: func-cross-tenant-dns). Leave the supported account type as is (Single tenant) and click on "Register".
+  - On the application registration, under "Manage" go to "Certificates & Secrets". Make sure "Client Secrets" is selected and click on "New Client secret" to create a new client secret. Optionally, give this secret a description and click on add. Copy the secret ID and secret value, we are going to need these later.
+  - Go to "API Permissions, click on "Add a permission". Under Mirosoft API's, click on "Microsoft Graph". Select "Application Permissions" and select the "Sites.ReadWrite.All". Click on "Add Permission"
+  - In the API permissions screen, click on "Grant admin consent for Default Directory". The final result looks like this:
+   
+![alt text](https://github.com/pimvandenderen/azure-multi-tenant-dns/blob/5539dc9c2e59e00e48cdee40b2aa44a1471a0c9b/images/appreg.png)
+
+**2. Assign the application registration permissions on the private DNS zone(s) ** (Development/remote tenant):
 
 
 
