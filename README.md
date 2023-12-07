@@ -54,6 +54,24 @@ Configuration steps for the Azure Function:
 
 You can use this for multiple DNS zones, you need to repeat step 2 for all Private DNS zones in the environment or set the permissions on the resource group that the Private DNS zones are in (recommended). 
 
+_Please be aware that step 3 and below need to be executed on the Production/main tenant._
+
+**3. Create the Azure Function** (Production / Main tenant):
+- Go to Function App --> Create.
+- Under Basic, select the subscription and resource group where you want to host the function. Give the function a unique name.
+  - Do you want to deploy code or container image: Code
+  - Runtime stack: PowerShell Core
+  - Version: 7.2
+  - Operating system: Windows
+  - Hosting options and plans: Consumption
+- Storage: Leave as default
+- Networking: Leave as default (enable public access: On)
+- Monitoring: Leave as default (Enable Application Insights)
+- Deployment: Leave as default.
+- Click "Review + Create" to create the function
+
+**4. 
+
 
 
 
